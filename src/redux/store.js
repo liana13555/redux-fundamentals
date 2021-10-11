@@ -1,16 +1,15 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import counterReducer from './counter/counter-reducer';
+import todosReducer from './todos/todos-reducer';
 
-const reducer = (state = {}, action) => {
-  console.log('Лог экшена в reducer:', action);
-  return state;
-};
-// принимает предыдущее состояние state и действие и возвращает след.состояние
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  todos: todosReducer,
+});
 
-const store = createStore(reducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 export default store;
 
-/*
-createStore(reducer, [preloadedState], [enhancer])
-[preloadedState], [enhancer] - необязательные параметры
-*/
+//combineReducers - позволяет взять несколько reducers
